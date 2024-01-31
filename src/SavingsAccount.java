@@ -13,7 +13,6 @@ public class SavingsAccount extends BankAccount{
 
         balance += amount + (amount * interestRate);
         System.out.println("Amount deposited successfully. New balance: €" + balance);
-        // System.out.println(super.toString());
     }
 
     public void withdraw(double amount) throws BankingException {

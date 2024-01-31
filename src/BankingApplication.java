@@ -86,13 +86,13 @@ public class BankingApplication {
             System.out.print("Enter account holder name: ");
             scanner.nextLine();
             String name = scanner.nextLine();
+            double minimumBalance = 100;
+
+            System.out.println("Minimum balance requirement for a Savings Account: € " + minimumBalance);
 
             double initialDeposit;
             System.out.print("Enter initial deposit amount (€): ");
             initialDeposit = scanner.nextDouble();
-
-            double minimumBalance = 100;
-            System.out.println("Minimum balance requirement for a Savings Account: € " + minimumBalance);
 
             System.out.print("Enter interest rate for the savings account: ");
             double interestRate = scanner.nextDouble();
@@ -126,12 +126,12 @@ public class BankingApplication {
             scanner.nextLine();
             String name = scanner.nextLine();
 
+            double minimumBalance = 500;
+            System.out.println("Minimum balance requirement for a Current Account: € " + minimumBalance);
+
             double initialDeposit;
             System.out.print("Enter initial deposit amount (€): ");
             initialDeposit = scanner.nextDouble();
-
-            double minimumBalance = 500;
-            System.out.println("Minimum balance requirement for a Current Account: € " + minimumBalance);
 
             System.out.print("Enter overdraft limit for the current account: € ");
             double overdraftLimit = scanner.nextDouble();
@@ -165,11 +165,11 @@ public class BankingApplication {
             scanner.nextLine();
             String name = scanner.nextLine();
 
-            System.out.print("Enter initial deposit amount (€): ");
-            double initialDeposit = scanner.nextDouble();
-
             double minimumBalance = 0;
             System.out.println("Minimum balance requirement for a Salary Account: € " + minimumBalance);
+
+            System.out.print("Enter initial deposit amount (€): ");
+            double initialDeposit = scanner.nextDouble();
 
             System.out.print("Enter monthly salary for the salary account: € ");
             double monthlySalary = scanner.nextDouble();
@@ -283,15 +283,74 @@ public class BankingApplication {
     }
 
     private static void deposit() {
+        try {
+            System.out.print("Enter account number to deposit into: ");
+            int accountNumber = scanner.nextInt();
 
+            BankAccount account = findAccount(accountNumber);
+            if (account != null) {
+                System.out.print("Enter deposit amount (€): ");
+                double depositAmount = scanner.nextDouble();
+                account.deposit(depositAmount);
+            } else {
+                System.out.println("Account not found with the given account number");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid account number and deposit amount");
+            scanner.nextLine();
+        } catch (BankingException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again");
+            scanner.nextLine();
+        }
     }
 
     private static void withdraw() {
+        try {
+            System.out.print("Enter account number to withdraw from: ");
+            int accountNumber = scanner.nextInt();
 
+            BankAccount account = findAccount(accountNumber);
+            if (account != null) {
+                System.out.print("Enter withdrawal amount (€): ");
+                double withdrawalAmount = scanner.nextDouble();
+                account.withdraw(withdrawalAmount);
+            } else {
+                System.out.println("Account not found with the given account number");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid account number and withdrawal amount");
+            scanner.nextLine();
+        } catch (BankingException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again");
+            scanner.nextLine();
+        }
     }
 
     private static void searchAccount() {
+        try {
+            System.out.print("Enter account number to search: ");
+            int accountNumber = scanner.nextInt();
 
+            BankAccount account = findAccount(accountNumber);
+            if (account != null) {
+                System.out.println("\nAccount details:\n" + account);
+            } else {
+                System.out.println("Account not found with the given account number");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid account number");
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again");
+            scanner.nextLine();
+        }
     }
 
     public static int generateAccountNumber() {
@@ -306,5 +365,4 @@ public class BankingApplication {
         }
         return null;
     }
-
 }
