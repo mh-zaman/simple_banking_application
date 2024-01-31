@@ -87,15 +87,12 @@ public class BankingApplication{
             scanner.nextLine();
             String name = scanner.nextLine();
 
-            double minimumBalance = 100;
-
             double initialDeposit;
             System.out.print("Enter initial deposit amount (€): ");
             initialDeposit = scanner.nextDouble();
 
-            if (initialDeposit < minimumBalance) {
+            double minimumBalance = 100;
             System.out.println("Minimum balance requirement for a Savings Account: € " + minimumBalance);
-            }
 
             System.out.print("Enter interest rate for the savings account: ");
             double interestRate = scanner.nextDouble();
@@ -118,15 +115,85 @@ public class BankingApplication{
         } catch (BankingException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again.");
+            scanner.nextLine();
         }
     }
 
-    private static void createCurrentAccount(){
+    private static void createCurrentAccount() {
+        try {
+            System.out.print("Enter account holder name: ");
+            scanner.nextLine();
+            String name = scanner.nextLine();
 
+            double initialDeposit;
+            System.out.print("Enter initial deposit amount (€): ");
+            initialDeposit = scanner.nextDouble();
+
+            double minimumBalance = 500;
+            System.out.println("Minimum balance requirement for a Current Account: € " + minimumBalance);
+            
+            System.out.print("Enter overdraft limit for the current account: € ");
+            double overdraftLimit = scanner.nextDouble();
+
+            int accountNumber = generateAccountNumber();
+
+            if (initialDeposit >= minimumBalance) {
+                CurrentAccount newAccount = new CurrentAccount(name, accountNumber, minimumBalance, overdraftLimit);
+                newAccount.deposit(initialDeposit);
+                accounts.add(newAccount);
+
+                System.out.println("Current Account created successfully. Account number: " + accountNumber);
+            } else {
+                throw new BankingException("Insufficient initial deposit to meet the minimum balance requirement.");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid numeric values.");
+            scanner.nextLine();
+        } catch (BankingException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again.");
+            scanner.nextLine();
+        }
     }
 
     private static void createSalaryAccount(){
+        try {
+            System.out.print("Enter account holder name: ");
+            scanner.nextLine();
+            String name = scanner.nextLine();
+            
+            System.out.print("Enter initial deposit amount (€): ");
+            double initialDeposit = scanner.nextDouble();
 
+            double minimumBalance = 0;
+            System.out.println("Minimum balance requirement for a Salary Account: € " + minimumBalance);
+
+            System.out.print("Enter monthly salary for the salary account: € ");
+            double monthlySalary = scanner.nextDouble();
+
+            int accountNumber = generateAccountNumber();
+
+            if (initialDeposit >= minimumBalance) {
+                SalaryAccount newAccount = new SalaryAccount(name, accountNumber, minimumBalance, monthlySalary);
+                newAccount.deposit(initialDeposit);
+                accounts.add(newAccount);
+
+                System.out.println("Salary Account created successfully. Account number: " + accountNumber);
+            } else {
+                throw new BankingException("Insufficient initial deposit to meet the minimum balance requirement.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter valid numeric values.");
+            scanner.nextLine();
+        } catch (BankingException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again.");
+            scanner.nextLine();
+        }
     }
 
     private static void displayAccounts(){

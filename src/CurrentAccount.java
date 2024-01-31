@@ -1,9 +1,9 @@
-public class SavingsAccount extends BankAccount{
-    private double interestRate;
+public class CurrentAccount extends BankAccount {
+    private double overdraftLimit;
 
-    public SavingsAccount(String name, int accountNumber, double minimumBalance, double interestRate) {
+    public CurrentAccount(String name, int accountNumber, double minimumBalance, double overdraftLimit) {
         super(name, accountNumber, minimumBalance);
-        this.interestRate = interestRate;
+        this.overdraftLimit = overdraftLimit;
     }
 
     public void deposit(double amount) throws BankingException {
@@ -11,9 +11,9 @@ public class SavingsAccount extends BankAccount{
             throw new BankingException("Deposit amount must be positive.");
         }
 
-        balance += amount + (amount * interestRate);
-        System.out.println("Amount deposited successfully. New balance: €" + balance);
-        // System.out.println(super.toString());
+        balance += amount;
+        System.out.println("Amount deposited successfully. New balance: € " + balance);
+        System.out.println(super.toString());
     }
 
     public void withdraw(double amount) throws BankingException {
@@ -21,7 +21,7 @@ public class SavingsAccount extends BankAccount{
             throw new BankingException("Withdrawal amount must be positive.");
         }
 
-        if (balance - amount >= getMinimumBalance()) {
+        if (balance - amount >= -overdraftLimit) {
             balance -= amount;
             System.out.println("Amount withdrawn successfully. New balance: € " + balance);
         } else {
@@ -30,6 +30,6 @@ public class SavingsAccount extends BankAccount{
     }
 
     public String getAccountType() {
-        return "Savings Account";
+        return "Current Account";
     }
 }
