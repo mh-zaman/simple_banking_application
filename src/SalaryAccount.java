@@ -34,7 +34,6 @@ public class SalaryAccount extends BankAccount {
     }
 
     private boolean isBonusDeposit(double depositAmount) {
-
         return depositAmount > monthlySalary;
     }
 
