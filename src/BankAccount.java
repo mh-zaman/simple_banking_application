@@ -1,7 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-abstract class BankAccount {
+public abstract class BankAccount {
     private String name;
     private int accountNumber;
     private String creationDate;
@@ -36,9 +36,9 @@ abstract class BankAccount {
         return minimumBalance;
     }
 
-    public abstract void deposit(double amount);
+    public abstract void deposit(double amount) throws BankingException;
 
-    public abstract void withdraw(double amount);
+    public abstract void withdraw(double amount) throws BankingException;
 
     public String toString() {
         return "\nAccount Number: " + accountNumber +
