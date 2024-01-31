@@ -196,8 +196,14 @@ public class BankingApplication{
         }
     }
 
-    private static void displayAccounts(){
-
+    private static void displayAccounts() {
+        if (accounts.isEmpty()) {
+            System.out.println("No accounts to display.");
+        } else {
+            for (BankAccount account : accounts) {
+                System.out.println("\n" + account);
+            }
+        }
     }
 
     private static void updateAcount(){
