@@ -206,8 +206,58 @@ public class BankingApplication{
         }
     }
 
-    private static void updateAcount(){
+    private static void updateAcount() {
+        try {
+            System.out.print("Enter account number to update: ");
+            int accountNumber = scanner.nextInt();
 
+            BankAccount account = findAccount(accountNumber);
+            if (account != null) {
+                System.out.println("\nCurrent details:\n" + account);
+
+                System.out.println("\nSelect the information to update:");
+                System.out.println("1. Account Holder's Name");
+                System.out.println("2. Minimum Balance");
+                System.out.println("3. Cancel");
+
+                int updateChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (updateChoice) {
+                    case 1:
+                        System.out.print("Enter new account holder name: ");
+                        String newName = scanner.nextLine();
+                        account.setName(newName);
+                        System.out.println("Account holder's name updated successfully");
+                        break;
+
+                    case 2:
+                        System.out.print("Enter new minimum balance (€): ");
+                        double newMinBalance = scanner.nextDouble();
+                        account.setMinimumBalance(newMinBalance);
+                        System.out.println("Minimum balance updated successfully");
+                        break;
+
+                    case 3:
+                        System.out.println("Update canceled");
+                        break;
+
+                    default:
+                        System.out.println("Invalid choice. Update canceled");
+                }
+
+                System.out.println("Updated details:\n" + account);
+            } else {
+                System.out.println("Account not found with the given account number");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid account number");
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again");
+            scanner.nextLine();
+        }
     }
 
     private static void deleteAcount(){
@@ -226,8 +276,17 @@ public class BankingApplication{
 
     }
 
-    public static int generateAccountNumber(){
+    public static int generateAccountNumber() {
         return (int) (Math.random() * 90000) + 10000;
+    }
+    
+    private static BankAccount findAccount(int accountNumber) {
+        for (BankAccount account : accounts) {
+            if (account.getAccountNumber() == accountNumber) {
+                return account;
+            }
+        }
+        return null;
     }
 
 }

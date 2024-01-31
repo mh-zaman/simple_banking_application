@@ -20,6 +20,10 @@ public abstract class BankAccount {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getAccountNumber() {
         return accountNumber;
     }
@@ -34,6 +38,10 @@ public abstract class BankAccount {
 
     public double getMinimumBalance() {
         return minimumBalance;
+    }
+
+    public void setMinimumBalance(double minimumBalance) {
+        this.minimumBalance = minimumBalance;
     }
 
     public abstract String getAccountType();
