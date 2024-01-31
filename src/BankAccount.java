@@ -36,12 +36,16 @@ public abstract class BankAccount {
         return minimumBalance;
     }
 
+    public abstract String getAccountType();
+
+
     public abstract void deposit(double amount) throws BankingException;
 
     public abstract void withdraw(double amount) throws BankingException;
 
     public String toString() {
-        return "\nAccount Number: " + accountNumber +
+        return "Account Type: " + getAccountType() +
+                "\nAccount Number: " + accountNumber +
                 "\nName: " + name +
                 "\nCreation Date: " + creationDate +
                 "\nBalance: $" + balance +
